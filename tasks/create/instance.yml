@@ -1,0 +1,36 @@
+---
+- name: Create a Disk
+  gcp_compute_disk:
+    state: present
+    name: "{{ gcp_compute_disk_name }}"
+    service_account_file: "{{ gcp_credentials_file }}"
+    size_gb: 10
+    project: "{{ gcp_project_name }}"
+    source_image: projects/centos-cloud/global/images/centos-7-v20190213
+    zone: "{{ gcp_zone }}"
+    auth_kind: serviceaccount
+  register: disk
+
+- name: Create an Instance
+  gcp_compute_instance:
+    state: present
+    name: "{{ gcp_compute_instance_name }}"
+    service_account_file: "{{ gcp_credentials_file }}"
+    zone: "{{ gcp_zone }}"
+    project: "{{ gcp_project_name }}"
+    auth_kind: serviceaccount
+    machine_type: g1-small
+    network_interfaces:
+    - name: nic0
+      network:    "{{ network }}"
+      subnetwork: "{{ subnetwork }}"
+    disks:
+    - boot: true
+      source:   "{{ disk }}"
+    metadata:
+      ssh-keys: "{{ gcp_ssh_key }}"
+      appid:    "{{ gcp_build_appid }}"
+      group:    "{{ gcp_build_group }}"
+      owner:    "{{ gcp_build_owner }}"
+    tags:
+      items:    "{{ gcp_instance_tags }}"

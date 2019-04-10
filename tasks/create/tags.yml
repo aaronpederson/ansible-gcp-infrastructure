@@ -1,0 +1,13 @@
+---
+- name: Add Labels to Instance
+  gce_labels:
+    state: present
+    resource_name: "{{ gcp_compute_instance_name }}"
+    credentials_file: "{{ gcp_credentials_file }}"
+    labels:
+      appid: "{{ gcp_build_appid }}"
+      group: "{{ gcp_build_group }}"
+      owner: "{{ gcp_build_owner }}"
+    resource_location: "{{ gcp_zone }}"
+    resource_type: instances
+    project_id: "{{ gcp_project_id }}"
