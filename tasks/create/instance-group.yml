@@ -1,0 +1,32 @@
+---
+- name: Create an Instance Template
+  gcp_compute_instance_template:
+    state: present
+    name: test
+    service_account_file: "{{ gcp_credentials_file }}"
+    project: "{{ gcp_project_name }}"
+    auth_kind: serviceaccount
+    properties:
+      disks:
+      - boot: true
+        auto_delete: yes
+        initialize_params:
+          source_image: projects/centos-cloud/global/images/centos-7-v20190213
+      machine_type: g1-small
+      network_interfaces:
+      - name: nic0
+        network:    "{{ network }}"
+        subnetwork: "{{ subnetwork }}"
+  register: template
+
+- name: Create a Managed Instance Group
+  gcp_compute_instance_group_manager:
+    name: instance-group-test
+    state: present
+    service_account_file: "{{ gcp_credentials_file }}"
+    project: "{{ gcp_project_name }}"
+    auth_kind: serviceaccount
+    zone: "{{ gcp_zone }}"
+    target_size: 3
+    base_instance_name: test-instance
+    instance_template: "{{ template }}"
