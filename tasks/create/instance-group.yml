@@ -2,7 +2,7 @@
 - name: Create an Instance Template
   gcp_compute_instance_template:
     state: present
-    name: test
+    name: instance-template
     service_account_file: "{{ gcp_credentials_file }}"
     project: "{{ gcp_project_name }}"
     auth_kind: serviceaccount
@@ -21,12 +21,13 @@
 
 - name: Create a Managed Instance Group
   gcp_compute_instance_group_manager:
-    name: instance-group-test
+    name: instance-group-manager
     state: present
     service_account_file: "{{ gcp_credentials_file }}"
     project: "{{ gcp_project_name }}"
     auth_kind: serviceaccount
     zone: "{{ gcp_zone }}"
     target_size: 3
-    base_instance_name: test-instance
+    base_instance_name: redis-cluster-test
     instance_template: "{{ template }}"
+

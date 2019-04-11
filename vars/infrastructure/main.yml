@@ -3,7 +3,7 @@ gcp_project_name: "{{ project_name }}"
 gcp_project_id:   "{{ project_id }}"
 
 gcp_compute_disk_name: "{{ gcp_compute_instance_name }}"
-gcp_compute_instance_name: redis-cache-01
+gcp_compute_instance_name: redis-test
 
 gcp_build_appid: 1930
 gcp_build_owner: aaron_pederson
