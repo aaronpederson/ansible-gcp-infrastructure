@@ -1,12 +1,13 @@
 ---
 - name: Create an Instance Template
   gcp_compute_instance_template:
-    state: present
     name: instance-template
+    state: present
     service_account_file: "{{ gcp_credentials_file }}"
     project: "{{ gcp_project_name }}"
     auth_kind: serviceaccount
     properties:
+      description: redis-cluster-node
       disks:
       - boot: true
         auto_delete: yes
@@ -15,8 +16,10 @@
       machine_type: g1-small
       network_interfaces:
       - name: nic0
-        network:    "{{ network }}"
+        network: "{{ network }}"
         subnetwork: "{{ subnetwork }}"
+      tags:
+        items: "{{ gcp_instance_tags }}"
   register: template
 
 - name: Create a Managed Instance Group
@@ -31,3 +34,19 @@
     base_instance_name: redis-cluster-test
     instance_template: "{{ template }}"
 
+- name: Determine Instance Names
+  gcp_compute_instance_facts:
+    auth_kind: serviceaccount
+    service_account_file: "{{ gcp_credentials_file }}"
+    zone: "{{ gcp_zone }}"
+    project: "{{ gcp_project_name }}"
+    filters:
+      - description = redis-cluster-node
+    scopes: 'https://www.googleapis.com/auth/compute.readonly'
+  register: instance_description
+
+- debug:
+    msg: "{{ instance_description['items'][0]['name'] }}"
+
+# TODO: Instance creation does not allow for tagging on build, nor does MIG allow for it. Only way (thus far) I've found is to identify the instances via a common 'description' somehow filter out the names of those created then running a tag task.
+# Will Revisit later

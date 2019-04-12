@@ -2,6 +2,6 @@
 - include_vars: infrastructure/main.yml
 
 - include: create/networking.yml
-- include: create/instance-group.yml
+#- include: create/instance-group.yml
 - include: create/instance.yml
 - include: create/tags.yml
