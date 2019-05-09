@@ -1,0 +1,12 @@
+---
+- name: GKE Cluster Exists | dmz
+  gcp_container_cluster_facts:
+    auth_kind: serviceaccount
+    region: "{{ gcp_region }}"
+    zone: "{{ gcp_zone }}"
+    project: "{{ gcp_project_name }}"
+    service_account_file: "{{ gcp_credentials_file }}"
+  register: cluster_status_dmz
+
+- debug:
+    msg: "{{ cluster_status_dmz['items'][0]['name'] }}"
