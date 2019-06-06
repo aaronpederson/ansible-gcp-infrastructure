@@ -1,0 +1,5 @@
+---
+- name: Create a kubernetes namespace
+  k8s:
+    name: kubernetes_instance
+    state: present

@@ -2,7 +2,7 @@
 - name: Create a Network
   gcp_compute_network:
     state: present
-    name: iwcs-img-dev01
+    name: iwcs-img-ppd
     auto_create_subnetworks: true
     service_account_file: "{{ gcp_credentials_file }}"
     project: "{{ gcp_project_name }}"
@@ -12,10 +12,10 @@
 - name: Create a Subnetwork
   gcp_compute_subnetwork:
     auth_kind: serviceaccount
-    name: subnet-internal-access
+    name: internal-access-us-east4
     service_account_file: "{{ gcp_credentials_file }}"
     network: "{{ network }}"
-    ip_cidr_range: 10.235.117.96/27
+    ip_cidr_range: 10.238.4.128/25
     region: "{{ gcp_region }}"
     project: "{{ gcp_project_name }}"
   register: subnetwork

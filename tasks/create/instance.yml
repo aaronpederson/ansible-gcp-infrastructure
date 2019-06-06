@@ -21,8 +21,7 @@
     auth_kind: serviceaccount
     machine_type: g1-small
     network_interfaces:
-    - name: nic0
-      network:    "{{ network }}"
+    - network:    "{{ network }}"
       subnetwork: "{{ subnetwork }}"
     disks:
     - boot: true

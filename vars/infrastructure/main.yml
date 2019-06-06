@@ -3,16 +3,13 @@ gcp_project_name: "{{ project_name }}"
 gcp_project_id:   "{{ project_id }}"
 
 gcp_compute_disk_name: "{{ gcp_compute_instance_name }}"
-gcp_compute_instance_name: redis-test
 
 gcp_build_appid: 1930
 gcp_build_owner: aaron_pederson
 gcp_build_group: yvr_cloudops
 
-gcp_credentials_file: /home/aaron_pederson/.google/iwcs-img-dev01-a0b591f25a48.json
+gcp_credentials_file: "{{ service_account_file }}"
 gcp_ssh_key: aaron_pederson:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKtJ9MVPDLkufcH4rPidNamDB7MDq3Hbh7CQtwrQIKSa aaron_pederson
 
 gcp_region: us-east4
 gcp_zone: "{{ gcp_region }}-a"
-
-gcp_instance_tags: [fw-redis-cluster, fw-redis-sentinel, internet-nat-route, iwcs-img-dev01, iwcs-img-dev01-control]

@@ -1,0 +1,6 @@
+---
+- name: Create Memorystore Instance
+  gcp_redis_instance:
+    name: mymemorystore
+    auth_kind: serviceaccount
+    region: "{{ gcp_region }}"
