@@ -1,0 +1,29 @@
+---
+- name: Create a Cloud SQL Instance
+  gcp_sql_instance:
+    state: present
+    name: 'test-sql-instance'
+    auth_kind: serviceaccount
+    service_account_file: "{{ gcp_credentials_file }}"
+    settings:
+      tier: db-n1-standard-1
+    project: "{{ gcp_project_id }}" 
+    region: 'us-central1'
+
+
+#automated backups are disabled
+#Not highly available
+#Binary logging is disabled
+# No database flags set
+# No labels set
+
+# Maintenance
+# Preferred window
+
+# Updates may occur any day of the week
+
+# Order of update 
+
+# Cloud SQL chooses the maintenance timing
+
+# Builds with pubic IP

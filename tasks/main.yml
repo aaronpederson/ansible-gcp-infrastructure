@@ -1,9 +1,10 @@
 ---
 - include_vars: infrastructure/main.yml
 
-#- include: create/cluster.yml
-- include: create/networking.yml
-#- include: create/instance-group.yml
-- include: create/instance.yml
-- include: create/tags.yml
-#- include: create/memorystore.yml
+- include: create/cloud-sql.yml
+# - include: create/cluster.yml
+# - include: create/networking.yml
+# - include: create/instance-group.yml
+# - include: create/instance.yml
+# - include: create/tags.yml
+# - include: create/memorystore.yml
